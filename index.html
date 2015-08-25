@@ -6,8 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.min.css" media="screen">
     <style type="text/css">
+    body {
+      padding: 1em;
+    }
     form, #output{
-      width: 50em;
+          max-width: 50em;
           margin: 5em auto;
     }
     form > * {
@@ -28,7 +31,7 @@
     button {
       background-color: #33A5F1;
       color: #fff;
-      width: 20em;
+      max-width: 20em;
       margin: auto;
       display: block;
     }
@@ -66,30 +69,37 @@
       };
 
       $('form').onsubmit = function(e) {
-        e.preventDefault();
-        var answer = $('input[name="answer"]').value;
-        var result = CryptoJS.MD5(val + answer);
 
-        result = result.toString();
+        try {
 
-        $('#output').innerHTML = '';
-        var e1 = document.createElement('textarea');
-        e1.setAttribute('readonly', true);
-        e1.value = 'MD5:\n' + result;
-        $('#output').appendChild(e1);
+          e.preventDefault();
+          var answer = $('input[name="answer"]').value;
+          var result = CryptoJS.MD5(val + answer);
 
-        // fill
-        var e2 = document.createElement('textarea');
-        result = fillAllChar(fillAllChar(result));
-        e2.setAttribute('readonly', true);
-        e2.value = 'Fill:\n' + result;
-        $('#output').appendChild(e2);
+          result = result.toString();
 
-        var e3 = document.createElement('textarea');
-        result = result.substring(0, 16)
-        e3.setAttribute('readonly', true);
-        e3.value = 'Fill16:\n' + result;
-        $('#output').appendChild(e3);
+          $('#output').innerHTML = '';
+          var e1 = document.createElement('textarea');
+          e1.setAttribute('readonly', true);
+          e1.value = 'MD5:\n' + result;
+          $('#output').appendChild(e1);
+
+          // fill
+          var e2 = document.createElement('textarea');
+          result = fillAllChar(fillAllChar(result));
+          e2.setAttribute('readonly', true);
+          e2.value = 'Fill:\n' + result;
+          $('#output').appendChild(e2);
+
+          var e3 = document.createElement('textarea');
+          result = result.substring(0, 16)
+          e3.setAttribute('readonly', true);
+          e3.value = 'Fill16:\n' + result;
+          $('#output').appendChild(e3);
+
+        } catch (e) {
+          alert(e);
+        }
       };
 
     </script>

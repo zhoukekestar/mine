@@ -17,23 +17,26 @@ var getQuestions = function(indexs) {
 
 var fillAllChar = function(str) {
 
+  try {
+    str = str.toUpperCase();
 
-  str = str.toUpperCase();
+    // For return 32 dig, if not, it will return 32 dig.
+    str += '0';
 
-  // For return 32 dig, if not, it will return 32 dig.
-  str += '0';
+    var arr = [], i, l, res = [];
+    for (i = 0, l = str.length; i < l; i++) {
+      arr.push(str.charCodeAt(i))
+    }
 
-  var arr = [], i, l, res = [];
-  for (i = 0, l = str.length; i < l; i++) {
-    arr.push(str.charCodeAt(i))
+    for (i = 0, l = arr.length - 1; i < l; i++) {
+      var sum = arr[i] + arr[i + 1];
+      sum %= 93;
+      sum += 33;
+      res.push(String.fromCharCode(sum));
+    }
+
+    return res.join('');
+  } catch (e) {
+    alert(e)
   }
-
-  for (i = 0, l = arr.length - 1; i < l; i++) {
-    var sum = arr[i] + arr[i + 1];
-    sum %= 93;
-    sum += 33;
-    res.push(String.fromCharCode(sum));
-  }
-
-  return res.join('');
 }
