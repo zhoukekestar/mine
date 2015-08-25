@@ -16,7 +16,7 @@
     .input-group label {
       color: #33A5F1;
     }
-    select,input,button {
+    select,input,button,textarea {
       width: 100%;
           border-radius: .2em;
           padding: .5em;
@@ -35,12 +35,13 @@
     </style>
   </head>
   <body>
-    
+
     <form>
       <select name='plat'>
         <option value='' data-question='none'>--- Please select ---</option>
         <option value='http://www.163.com/1440485948090' data-questions='[1]'>163</option>
         <option value='http://www.qq.com/1440485948090' data-questions='[2]'>QQ</option>
+        <option value='https://www.taobao.com/1440485948090' data-questions='[1]'>Taobao</option>
       </select>
       <div class='input-group'>
         <label>No Questions selected.</label>
@@ -49,7 +50,7 @@
       <button id='getResult'>Get Result!</button>
     </form>
     <div id='output'></div>
-    
+
     <script src='//cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/md5.js'></script>
     <script src='./questions.js'></script>
     <script>
@@ -68,7 +69,27 @@
         e.preventDefault();
         var answer = $('input[name="answer"]').value;
         var result = CryptoJS.MD5(val + answer);
-        $('#output').innerHTML = result.toString();
+
+        result = result.toString();
+
+        $('#output').innerHTML = '';
+        var e1 = document.createElement('textarea');
+        e1.setAttribute('readonly', true);
+        e1.value = 'MD5:\n' + result;
+        $('#output').appendChild(e1);
+
+        // fill
+        var e2 = document.createElement('textarea');
+        result = fillAllChar(fillAllChar(result));
+        e2.setAttribute('readonly', true);
+        e2.value = 'Fill:\n' + result;
+        $('#output').appendChild(e2);
+
+        var e3 = document.createElement('textarea');
+        result = result.substring(0, 16)
+        e3.setAttribute('readonly', true);
+        e3.value = 'Fill16:\n' + result;
+        $('#output').appendChild(e3);
       };
 
     </script>
