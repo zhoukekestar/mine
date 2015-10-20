@@ -4,14 +4,15 @@
     <meta charset="UTF-8">
     <title>Mine by zhoukekestar</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.min.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.min.css" media="screen">
     <style type="text/css">
     body {
       padding: 1em;
     }
-    form, #output{
+    form, #output, p.note{
           max-width: 50em;
           margin: 5em auto;
+          color: #33A5F1;
     }
     form > * {
       margin-bottom: 10px;
@@ -42,7 +43,7 @@
     <form>
       <select name='plat'>
         <option value='' data-question='none'>--- Please select ---</option>
-        <option value='http://www.163.com/1440485948090' data-questions='[1]'>163</option>
+        <option value='http://www.163.com/1440485948090' data-questions='[3]'>163</option>
         <option value='http://www.qq.com/1440485948090' data-questions='[2]'>QQ</option>
         <option value='https://www.taobao.com/1440485948090' data-questions='[1]'>Taobao</option>
       </select>
@@ -52,9 +53,23 @@
       </div>
       <button id='getResult'>Get Result!</button>
     </form>
-    <div id='output'></div>
+    <p class="note">MD5 & Fill & Fill16</p>
+    <div id='output'>
+      <textarea id='text1'></textarea>
+      <textarea id='text2'></textarea>
+      <textarea id='text3'></textarea>
+    </div>
 
-    <script src='//cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/md5.js'></script>
+    <!-- copy -->
+    <button id='copy' data-clipboard-target="#text3">Copy to clipboard</button>
+    <script src='./clipboard.min.js'></script>
+    <script>new Clipboard('#copy');</script>
+    <!-- copy end -->
+
+    <script src='http://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/md5.js'></script>
+    <script src='./aes.js'></script>
+    <script src='./tripledes.js'></script>
+    <script src='./mode-ecb.js'></script>
     <script src='./questions.js'></script>
     <script>
       var $ = function(se) {
@@ -78,24 +93,22 @@
 
           result = result.toString();
 
-          $('#output').innerHTML = '';
-          var e1 = document.createElement('textarea');
+          var e1 = document.querySelector('#text1');
           e1.setAttribute('readonly', true);
-          e1.value = 'MD5:\n' + result;
-          $('#output').appendChild(e1);
+          e1.value = result;
 
           // fill
-          var e2 = document.createElement('textarea');
+          var e2 = document.querySelector('#text2');
           result = fillAllChar(fillAllChar(result));
           e2.setAttribute('readonly', true);
-          e2.value = 'Fill:\n' + result;
-          $('#output').appendChild(e2);
+          e2.value = result;
 
-          var e3 = document.createElement('textarea');
+
+          var e3 = document.querySelector('#text3');
           result = result.substring(0, 16)
           e3.setAttribute('readonly', true);
-          e3.value = 'Fill16:\n' + result;
-          $('#output').appendChild(e3);
+          e3.value = result;
+
 
         } catch (e) {
           alert(e);
