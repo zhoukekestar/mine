@@ -1,7 +1,8 @@
 var Questions = [
 	"Country lawyer?",
-	"Runner!",
-  "Publisher!"
+	"Runner! A-H-R.",
+  "Publisher! Old man.",
+  "Path Designer."
 ];
 
 var getQuestions = function(indexs) {
