@@ -4,7 +4,8 @@ var Questions = [
   "Publisher! Old man.",
   "Path Designer.",
   "My Name in my family eyes?",
-	"My girlfriend?"
+	"My girlfriend?",
+  "Just number",
 ];
 
 var getQuestions = function(indexs) {
